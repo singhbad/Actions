@@ -9,31 +9,21 @@ jobs:
         - name: Checkout Repo
           uses: actions/checkout@v4
           
-        - name: welcome  message
-          run: |
-            
-            mkdir -p badal
-            echo "Badal Singh" > badal/kur.txt
-
-        - uses: actions/upload-artifact@v3
+        - run: mkdir -p path/to/artifact
+        - run: echo hello > path/to/artifact/world.txt
+        - uses: actions/upload-artifact@v4
           with:
-            name: artficat
-            path: badal/kur.txt
+              name: my-artifact
+              path: path/to/artifact/world.txt
     
     upload_job:
         needs: build_job
         runs-on: ubuntu-latest
         steps: 
-        - name: Checkout Repo
-          uses: actions/checkout@v4
-          
-        - name: welcome  message
-          run: |
-            
-            mkdir -p badal
-            echo "Badal Singh" > badal/kur.txt
+        - name: Download Artifact
+      
 
-        - uses: actions/download-artifact@v3
+          uses: actions/download-artifact@v4
           with:
-            name: artficat
+            name: my-artifact
         

@@ -3,7 +3,7 @@ name: My App
 on: push
 
 jobs:
-    first_job:
+    build_job:
         runs-on: ubuntu-latest
         steps: 
         - name: Checkout Repo
@@ -11,12 +11,29 @@ jobs:
           
         - name: welcome  message
           run: |
-            echo "Badal Singh"
-            ls -lart
-            cat README.md
+            
+            mkdir -p badal
+            echo "Badal Singh" > badal/kur.txt
 
-        # - name: List Files
-        #   run: ls
+        - uses: actions/upload-artifact@v3
+          with:
+            name: artficat
+            path: badal/kur.txt
+    
+    upload_job:
+        needs: build_job
+        runs-on: ubuntu-latest
+        steps: 
+        - name: Checkout Repo
+          uses: actions/checkout@v4
+          
+        - name: welcome  message
+          run: |
+            
+            mkdir -p badal
+            echo "Badal Singh" > badal/kur.txt
 
-        # - name: Read Files
-        #   run: cat README.md
+        - uses: actions/download-artifact@v3
+          with:
+            name: artficat
+            #path: badal/kur.txt
